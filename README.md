@@ -1,0 +1,2 @@
+# IoT-Based-Air-Quality-Monitoring-System-with-Cloud-Integration-using-Firebase
+This IoT project monitors air quality and smoke levels using an MQ135 sensor and ESP8266 module. The collected data is transmitted to the cloud and stored in Firebase Realtime Database (RTDB). A React Native mobile app retrieves this data, enabling users to monitor air quality and gas levels in real time from anywhere.
