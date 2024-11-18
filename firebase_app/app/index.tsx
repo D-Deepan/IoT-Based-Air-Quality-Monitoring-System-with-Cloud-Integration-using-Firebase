@@ -1,7 +1,7 @@
 // App.js or any component
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { database, ref, onValue } from '../firebaseConfig';
+import { database, ref, onValue, off } from '../firebaseConfig';
 
 export default function App() {
   const [sensorData, setSensorData] = useState({
@@ -14,8 +14,8 @@ export default function App() {
     const dataRef = ref(database, 'sensor_data'); // Reference to the "sensor_data" node in your DB
 
     // Set up a listener to get the data in real-time
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();  // Get the data from Firebase
+    const unsubscribe = onValue(dataRef, (snapshot) => {
+      const data = snapshot.val(); // Get the data from Firebase
       if (data) {
         setSensorData({
           alert: data.alert,
@@ -24,14 +24,20 @@ export default function App() {
       }
     });
 
-    return 
+    // Cleanup the listener when the component unmounts
+    return () => {
+      off(dataRef);
+    };
+  }, []); // Empty dependency array ensures this runs only once
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ESP32 Sensor Data</Text>
 
       <View style={styles.dataContainer}>
-        <Text style={styles.text}>Alert: {sensorData.alert ? 'Triggered' : 'Not Triggered'}</Text>
+        <Text style={styles.text}>
+          Alert: {sensorData.alert ? 'Triggered' : 'Not Triggered'}
+        </Text>
         <Text style={styles.text}>Gas Value: {sensorData.gas_value}</Text>
       </View>
     </View>
