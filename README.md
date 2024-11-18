@@ -47,13 +47,20 @@ This project involves monitoring air quality and smoke detection using an **MQ-1
    
 2. **Set Up Realtime Database and Authentication**:
    - In your Firebase project, enable **Realtime Database** and set up **Authentication**.
-   - Copy the Firebase **API Key** and **Database URL** for the next steps.
-
-3. **Link Firebase with the Arduino (ESP8266)**:
-   - In the `arduino/esp_iot` folder, you'll find the code to connect the **MQ-135 sensor** to the **ESP8266** and send sensor data to Firebase.
-   - Replace the placeholders in the Arduino code with your **Firebase API Key** and **Database URL**.
+   - To set up **Authentication**, go to the Firebase Console, navigate to the **Authentication** section, and configure the sign-in method (e.g., Email/Password, Google, etc.).
    
-4. **Link Firebase with the React Native App**:
+3. **Obtain Firebase API Key and Database URL**:
+   - After setting up the Firebase Realtime Database, go to the **Project Settings** in the Firebase Console and copy the **API Key** and **Database URL** for later use.
+
+4. **Link Firebase with the Arduino (ESP8266)**:
+   - In the `arduino/esp_iot` folder, you'll find the code to connect the **MQ-135 sensor** to the **ESP8266** and send sensor data to Firebase.
+   - Replace the placeholders in the Arduino code with the following:
+     - **Firebase API Key**: This will be used to authenticate the connection to Firebase.
+     - **Database URL**: The URL of your Firebase Realtime Database.
+     - **Authentication Credentials**: After creating authentication credentials in Firebase, copy them (such as **User ID** or **Auth Token**) and paste them into the appropriate place in your Arduino code to 
+       authenticate the connection.
+
+5. **Link Firebase with the React Native App**:
    - Create a **Web App** in Firebase to generate a **firebaseConfig.js** file.
    - Paste this **firebaseConfig.js** file into the `firebase_app` folder of your React Native project.
    - This will link the Firebase Realtime Database and Authentication with the React Native app for live data fetching and display.
